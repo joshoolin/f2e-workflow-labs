@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var del = require('del');
+var concat = require('gulp-concat');
 
 gulp.task('default', ['output2'], function () {
 	// place code for your default task here
@@ -60,7 +61,7 @@ gulp.task('watch', function () {
 	gulp
 		.watch([
 			'app/**/*.js'
-		], ['output-app'])
+		], ['app'])
 		.on('change', function (event) {
 			console.log('File ' + event.path + ' was ' + event.type);
 		});
@@ -78,4 +79,13 @@ gulp.task('clean-app', function (done) {
 	del(['output-app/**', '!output-app']).then(function () {
 		done();
 	});
+});
+
+gulp.task('app', function () {
+	gulp.src([
+		'app/**/*.module.js',
+		'app/**/*.js'
+	])
+		.pipe(concat('app.js'))
+		.pipe(gulp.dest('assets'));
 });
