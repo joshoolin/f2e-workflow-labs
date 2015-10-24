@@ -1,6 +1,7 @@
 var gulp = require('gulp');
+var del = require('del');
 
-gulp.task('default', ['myTask1', 'myTask2'], function () {
+gulp.task('default', ['output2'], function () {
 	// place code for your default task here
 	console.log('Hello, Gulp!');
 });
@@ -21,7 +22,7 @@ gulp.task('output1', function () {
 		.pipe(gulp.dest('output1'));
 });
 
-gulp.task('output2', function () {
+gulp.task('output2', ['clean'], function () {
 	gulp
 		.src('assets/vendor/bootstrap/**/*.js',
 			{
@@ -37,4 +38,11 @@ gulp.task('output3', function () {
 			'assets/vendor/bootstrap/**/*.css'
 		])
 		.pipe(gulp.dest('output3'));
+});
+
+gulp.task('clean', function (done) {
+	del(['output2/bootstrap/**', '!output2/bootstrap']).then(function (paths) {
+		console.log('deleted files/folders:\n', paths.join('\n'));
+		done();
+	});
 });
