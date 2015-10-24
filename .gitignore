@@ -2,6 +2,7 @@
 
 ### Bower ###
 bower_components
+assets/vendor
 .bower-cache
 .bower-registry
 .bower-tmp
@@ -50,3 +51,4 @@ dist/
 ### Sass ###
 .sass-cache/
 *.css.map
+.bowerrc
