@@ -46,3 +46,36 @@ gulp.task('clean', function (done) {
 		done();
 	});
 });
+
+gulp.task('watch', function () {
+	gulp
+		.watch([
+			'app/**/*.js'
+		], [
+				'output-app'
+			]);
+});
+
+gulp.task('watch', function () {
+	gulp
+		.watch([
+			'app/**/*.js'
+		], ['output-app'])
+		.on('change', function (event) {
+			console.log('File ' + event.path + ' was ' + event.type);
+		});
+});
+
+gulp.task('output-app', ['clean-app'], function () {
+	gulp
+		.src([
+			'app/**/*.js'
+		])
+		.pipe(gulp.dest('output-app'));
+});
+
+gulp.task('clean-app', function (done) {
+	del(['output-app/**', '!output-app']).then(function () {
+		done();
+	});
+});
